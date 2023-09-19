@@ -17,7 +17,7 @@ def token_patterns(data, n, top_n=10):
     # treat data as one string 
     all_data = nltk.word_tokenize(' '.join(data))
 
-    ngrams = list(nltk.ngrams(data, n))
+    ngrams = list(nltk.ngrams(all_data, n))
     # keep only unique ngrams
     ngrams = set(ngrams) 
 

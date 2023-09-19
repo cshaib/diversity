@@ -15,14 +15,12 @@ def token_patterns(data, n, top_n=10):
     """
 
     # treat data as one string 
-    all_data = nltk.word_tokenize(' '.join(data))
+    all_data = ' '.join(data)
 
-    ngrams = list(nltk.ngrams(all_data, n))
-    # keep only unique ngrams
-    ngrams = set(ngrams) 
-
+    ngrams = list(nltk.ngrams(all_data.split(' '), n))
     frequency = nltk.FreqDist(ngrams)
 
     sorted_frequency = sorted(frequency.items(), key=lambda kv: kv[1], reverse=True)[:top_n]
 
+    sorted_frequency = [(' '.join(x[0]), x[1]) for x in sorted_frequency]
     return sorted_frequency

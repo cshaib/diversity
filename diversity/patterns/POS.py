@@ -70,3 +70,4 @@ def pos_patterns(text, pattern):
         if test:
             for occ in test: 
                 print(w.split()[int(occ[0]):int(occ[1]+1)])
+    return

@@ -1,4 +1,5 @@
 import nltk
+nltk.download('averaged_perceptron_tagger')
 
 def get_pos(data):
     """ Turns a sequence into parts of speech 

@@ -23,4 +23,5 @@ def token_patterns(data, n, top_n=10):
     sorted_frequency = sorted(frequency.items(), key=lambda kv: kv[1], reverse=True)[:top_n]
 
     sorted_frequency = [(' '.join(x[0]), x[1]) for x in sorted_frequency]
+    
     return sorted_frequency

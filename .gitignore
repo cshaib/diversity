@@ -1,1 +1,5 @@
 dist/
+.DS_Store
+diversity/__pycache__/
+diversity/patterns/__pycache__/
+test.ipynb

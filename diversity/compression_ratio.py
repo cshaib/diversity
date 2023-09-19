@@ -16,22 +16,23 @@ def compression_ratio(path, data, algorithm='gzip'):
 
     with open(path+'original.txt', 'w+') as f:
         f.write(' '.join(data))
-        original_size = os.path.getsize(os.path.join(path, "original.txt"))
+
+    original_size = os.path.getsize(os.path.join(path, "original.txt"))
 
     if algorithm == 'gzip':
 
         with gzip.GzipFile(path+'compressed.gz', 'w+') as f:
             f.write(gzip.compress(' '.join(data).encode('utf-8')))
-            f.close()
-            compressed_size = os.path.getsize(os.path.join(path, "compressed.gz"))
+
+        compressed_size = os.path.getsize(os.path.join(path, "compressed.gz"))
 
     elif algorithm == 'xz': 
 
         with xz.open(path+'compressed.gz', 'wb') as f:
             f.write(' '.join(data).encode('utf-8'))
-            f.close()
-            compressed_size = os.path.getsize(os.path.join(path, "compressed.gz"))
-            print(f'Compressed size: {compressed_size}')
+
+        compressed_size = os.path.getsize(os.path.join(path, "compressed.gz"))
+
 
     print(f"Original Size: {original_size}\nCompressed Size: {compressed_size}")
 

@@ -2,7 +2,7 @@ import gzip
 import os
 import lzma as xz
 
-def compression_ratio(path, data, algorithm='gzip'):
+def compression_ratio(path, data, algorithm='gzip', verbose=False):
     """ Calculates the compression ratio for a collection of text. 
 
     Args:
@@ -33,8 +33,8 @@ def compression_ratio(path, data, algorithm='gzip'):
 
         compressed_size = os.path.getsize(os.path.join(path, "compressed.gz"))
 
-
-    print(f"Original Size: {original_size}\nCompressed Size: {compressed_size}")
+    if verbose: 
+        print(f"Original Size: {original_size}\nCompressed Size: {compressed_size}")
 
     return original_size / compressed_size
     

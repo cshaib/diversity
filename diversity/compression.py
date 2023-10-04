@@ -1,15 +1,17 @@
-from typing import List
+from typing import List, Optional
+from pathlib import Path
 
+import tempfile
 import gzip
 import os
 import lzma as xz
 
 
 def compression_ratio(
-        path: str,
         data: List[str],
         algorithm: str = 'gzip',
-        verbose: bool = False
+        verbose: bool = False,
+        path: Optional[str] = None
 ) -> float:
     """ Calculates the compression ratio for a collection of text. 
 
@@ -22,27 +24,37 @@ def compression_ratio(
         float: compression ratio (original size / compressed size)
     """
 
-    with open(path+'original.txt', 'w+') as f:
+    temp_dir = None
+    if not path:
+        temp_dir = tempfile.TemporaryDirectory()
+        path = Path(temp_dir.name)
+    else:
+        path = Path(path)
+
+    with (path / 'original.txt').open('w+') as f:
         f.write(' '.join(data))
 
     original_size = os.path.getsize(os.path.join(path, "original.txt"))
 
     if algorithm == 'gzip':
 
-        with gzip.GzipFile(path+'compressed.gz', 'w+') as f:
+        with gzip.GzipFile(str(path / 'compressed.gz'), 'w+') as f:
             f.write(gzip.compress(' '.join(data).encode('utf-8')))
 
         compressed_size = os.path.getsize(os.path.join(path, "compressed.gz"))
 
     elif algorithm == 'xz': 
 
-        with xz.open(path+'compressed.gz', 'wb') as f:
+        with xz.open(str(path / 'compressed.gz'), 'wb') as f:
             f.write(' '.join(data).encode('utf-8'))
 
-        compressed_size = os.path.getsize(os.path.join(path, "compressed.gz"))
+        compressed_size = (path / "compressed.gz").stat().st_size
 
     if verbose: 
         print(f"Original Size: {original_size}\nCompressed Size: {compressed_size}")
+
+    if temp_dir:
+        temp_dir.cleanup()
 
     return original_size / compressed_size
     

@@ -1,8 +1,16 @@
-import gzip 
+from typing import List
+
+import gzip
 import os
 import lzma as xz
 
-def compression_ratio(path, data, algorithm='gzip', verbose=False):
+
+def compression_ratio(
+        path: str,
+        data: List[str],
+        algorithm: str = 'gzip',
+        verbose: bool = False
+) -> float:
     """ Calculates the compression ratio for a collection of text. 
 
     Args:

@@ -1,7 +1,12 @@
+from typing import List, Tuple, Any, Set
+
 import nltk
+
 nltk.download('averaged_perceptron_tagger')
 
-def get_pos(data):
+def get_pos(
+        data: List[str]
+) -> Tuple[List[str], List[Tuple[str, str]]]:
     """ Turns a sequence into parts of speech 
 
     Args:
@@ -10,7 +15,6 @@ def get_pos(data):
     Returns:
         str, tuple: str of POS tags, tuple of (word, pos)
     """
-
 
     pos_tuples = [nltk.pos_tag(x.split()) for x in data]
 
@@ -24,7 +28,10 @@ def get_pos(data):
     return joined_pos, pos_tuples
 
 
-def _find_sub_list(sl,l):
+def _find_sub_list(
+        sl: List[Any],
+        l: List[Any]
+) -> List[Any]:
     """_summary_
 
     Args:
@@ -43,7 +50,10 @@ def _find_sub_list(sl,l):
     return results
 
 
-def pos_patterns(text, pattern): 
+def pos_patterns(
+        text: List[List[Tuple[str, str]]],
+        pattern: str
+) -> Set[str]: 
     """ Matches a pattern to a text and returns the text.
 
     Args:

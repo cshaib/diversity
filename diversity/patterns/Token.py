@@ -1,8 +1,14 @@
 
-import nltk 
-from tqdm import tqdm
+from typing import List, Tuple
 
-def token_patterns(data, n, top_n=10): 
+import nltk 
+
+
+def token_patterns(
+        data: List[str],
+        n: int,
+        top_n: int = 10
+) -> List[Tuple[str, int]]:
     """ Pulls out ngrams patterns in the data. 
 
     Args:

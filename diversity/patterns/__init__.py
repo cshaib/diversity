@@ -1,2 +1,2 @@
-from .Token import token_patterns
-from .POS import get_pos, pos_patterns
+from .token import token_patterns
+from .part_of_speech import get_pos, pos_patterns

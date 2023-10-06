@@ -7,13 +7,13 @@ nltk.download('averaged_perceptron_tagger')
 def get_pos(
         data: List[str]
 ) -> Tuple[List[str], List[Tuple[str, str]]]:
-    """ Turns a sequence into parts of speech 
+    """ Turns a sequence into parts of speech.
 
     Args:
-        data (list): data to tranform into POS tags
+        data (List[str]): Data to tranform into part of speech tags.
 
     Returns:
-        str, tuple: str of POS tags, tuple of (word, pos)
+        Tuple[List[str], List[Tuple[str, str]]]: Part-of-speech tags only, tuple of (token, part-of-speech tag).
     """
 
     pos_tuples = [nltk.pos_tag(x.split()) for x in data]
@@ -32,15 +32,8 @@ def _find_sub_list(
         sl: List[Any],
         l: List[Any]
 ) -> List[Any]:
-    """_summary_
-
-    Args:
-        sl (_type_): _description_
-        l (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
+    """ Given a pattern and a list of strings, returns sublists matching the pattern. """
+    
     results = []
     sll = len(sl)
     for ind in (i for i,e in enumerate(l) if e==sl[0]):
@@ -54,14 +47,14 @@ def pos_patterns(
         text: List[List[Tuple[str, str]]],
         pattern: str
 ) -> Set[str]: 
-    """ Matches a pattern to a text and returns the text.
+    """ Finds all substrings matching a part of speech pattern. 
 
     Args:
-        text (_type_): _description_
-        pattern (_type_): _description_
+        text (List[List[Tuple[str, str]]]): Text containing words and part-of-speech tags.
+        pattern (str): Part-of-speech tag pattern to search for.
 
-    Returns: 
-        _type_: _description_
+    Returns:
+        Set[str]: Returns all the string matching the pattern.
     """
 
     pos = []

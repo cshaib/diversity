@@ -13,17 +13,17 @@ def compression_ratio(
         verbose: bool = False,
         path: Optional[str] = None
 ) -> float:
-    """ Calculates the compression ratio for a collection of text. 
+    """ Calculates the compression ratio for a collection of text.
 
     Args:
-        path (str): path to store temporarily zipped files
-        data (list): list of strings
-        algorithm (str, optional): either 'gzip' or 'xz'. Defaults to 'gzip'.
+        path (str): Path to store temporarily zipped files.
+        data (List[str]): Strings to compress.
+        algorithm (str, optional): Either 'gzip' or 'xz'. Defaults to 'gzip'.
+        verbose (bool, optional): Print out the original and compressed size separately. Defaults to False.
 
     Returns:
-        float: compression ratio (original size / compressed size)
+        float: Compression ratio (original size / compressed size)
     """
-
     temp_dir = None
     if not path:
         temp_dir = tempfile.TemporaryDirectory()

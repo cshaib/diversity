@@ -1,7 +1,6 @@
 from typing import List, Tuple, Any, Set
 
 import nltk
-
 nltk.download('averaged_perceptron_tagger')
 
 def get_pos(

@@ -1,5 +1,4 @@
 from typing import Optional
-import diversity
 from diversity import get_pos, pos_patterns, token_patterns, compression_ratio
 from transformers import pipeline
 from datasets import load_dataset

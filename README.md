@@ -42,14 +42,6 @@ print(cr, hs, nds)
 
 You can also visualize various ngram patterns using this library:
 ```python
-from diversity import compression_ratio, homogenization_score, ngram_diversity_score
-
-data_example  = [
-"I enjoy walking with my cute dog for the rest of the day, but this time it was hard for me to figure out what to do with it. When I finally looked at this for a few moments, I immediately thought.",
-"I enjoy walking with my cute dog. The only time I felt like walking was when I was working, so it was awesome for me. I didn't want to walk for days. I am really curious how she can walk with me", 
-"I enjoy walking with my cute dog (Chama-I-I-I-I-I), and I really enjoy running. I play in a little game I play with my brother in which I take pictures of our houses."
-]
-
 # get the token-level patterns
 patterns_token  =  token_patterns(outputs, ngram)
 

@@ -3,3 +3,4 @@ dist/
 diversity/__pycache__/
 diversity/patterns/__pycache__/
 test.ipynb
+__pycache__

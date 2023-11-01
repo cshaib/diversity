@@ -32,8 +32,8 @@ def homogenization_score(
     else: 
         raise ValueError("Scoring measure must be one of `rougel` or `bertscore`.")
 
-    all_pairs = list(itertools.product(data, repeat=2))
-    curr_str = all_pairs[0][0]
+    all_pairs = itertools.product(data, repeat=2)
+    curr_str = data[0]
     corpus_score = 0
     doc_score = 0
     

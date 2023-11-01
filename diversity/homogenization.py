@@ -32,13 +32,13 @@ def homogenization_score(
     else: 
         raise ValueError("Scoring measure must be one of `rougel` or `bertscore`.")
 
-    all_pairs = list(itertools.product(data, repeat=2))
-    curr_str = all_pairs[0][0]
+    all_pairs = itertools.product(data, repeat=2)
+    curr_str = data[0]
     corpus_score = 0
     doc_score = 0
     
     print('==> Scoring all pairs')
-    for pair in tqdm(all_pairs):
+    for pair in tqdm(all_pairs, total=len(data)**2):
         # single document-level homogenization score, pairs are ordered
         if pair[0] == curr_str:     
             doc_score += _calculate_score(pair, scorer, measure, model)

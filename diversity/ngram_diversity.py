@@ -3,7 +3,7 @@ import nltk
 
 def ngram_diversity_score(
         data: List[str],
-        num_n: int = 5, 
+        num_n: int = 4, 
 ) -> float:
     """ Calculates corpus-level ngram diversity based on unique ngrams 
        (e.g., https://arxiv.org/pdf/2202.00666.pdf).

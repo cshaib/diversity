@@ -38,7 +38,7 @@ def homogenization_score(
     doc_score = 0
     
     print('==> Scoring all pairs')
-    for pair in tqdm(all_pairs):
+    for pair in tqdm(all_pairs, total=len(data)**2):
         # single document-level homogenization score, pairs are ordered
         if pair[0] == curr_str:     
             doc_score += _calculate_score(pair, scorer, measure, model)

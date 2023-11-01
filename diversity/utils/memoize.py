@@ -5,7 +5,7 @@ class memoized(object):
    '''
    Decorator. Caches a function's return value each time it is called.
    If called later with the same arguments, the cached value is returned
-   (not reevaluated).
+   (not re-evaluated).
    From https://wiki.python.org/moin/PythonDecoratorLibrary#Memoize.
    '''
 
@@ -15,7 +15,6 @@ class memoized(object):
 
    def __call__(self, *args):
       if not isinstance(args, collections.abc.Hashable):
-         # uncacheable. a list, for instance.
          # better to not cache than blow up.
          return self.func(*args)
       if args in self.cache:

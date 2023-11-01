@@ -23,4 +23,4 @@ def ngram_diversity_score(
         # num unique ngrams / all ngrams for each size n 
         score += len(set(ngrams)) / len(ngrams) 
 
-    return score
+    return round(score, 3)

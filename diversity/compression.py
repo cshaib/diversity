@@ -55,5 +55,5 @@ def compression_ratio(
     if temp_dir:
         temp_dir.cleanup()
 
-    return original_size / compressed_size
+    return round(original_size / compressed_size, 3)
     

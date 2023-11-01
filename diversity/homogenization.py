@@ -18,7 +18,7 @@ def homogenization_score(
         From https://arxiv.org/pdf/2309.05196.pdf 
      Args:
          data (List[str]): Strings to score.
-         measure (str, optional): Either 'rougel' or 'bertscore'. Defaults to 'rougel'.
+         measure (str, optional): Either 'rougel', 'bertscore', or 'bleu'. Defaults to 'rougel'.
          use_stemmer(str, optional): Whether to use stemming in the ROUGE-L calculation. Defaults to False.
          model(str, optional): Model to use for BERTScore. Defaults to 'microsoft/deberta-xlarge-mnli'. 
      Returns:
@@ -29,6 +29,8 @@ def homogenization_score(
         scorer = rouge_scorer.RougeScorer(['rougeL'], use_stemmer=use_stemmer)
     elif measure == 'bertscore': 
         scorer = load("bertscore")
+    elif measure == 'bleu':
+        scorer = load("bleu")
     else: 
         raise ValueError("Scoring measure must be one of `rougel` or `bertscore`.")
 
@@ -66,5 +68,8 @@ def _calculate_score(pair, scorer, measure, model):
             score = scorer.compute(predictions=[pair[0]], 
                                    references=[pair[1]], 
                                    model_type=model)['f1'][0]
+        elif measure == 'bleu': 
+            score = scorer.compute(predictions=[pair[0]], 
+                                   references=[pair[1]])['bleu']
         
         return score 

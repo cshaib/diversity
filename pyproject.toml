@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "diversity"
-version = "0.1.12"
+version = "0.1.14"
 description = ""
 authors = ["Chantal Shaib <shaib.c@northeastern.edu>"]
 readme = "README.md"

@@ -32,7 +32,7 @@ def homogenization_score(
     elif measure == 'bleu':
         scorer = load("bleu")
     else: 
-        raise ValueError("Scoring measure must be one of `rougel` or `bertscore`.")
+        raise ValueError("Scoring measure must be one of `rougel`, `bleu`, or `bertscore`.")
 
     all_pairs = itertools.product(data, repeat=2)
     curr_str = data[0]

@@ -5,7 +5,6 @@ from datasets import load_dataset
 
 import typer
 
-
 app = typer.Typer()
 
 @app.command()
@@ -58,7 +57,6 @@ def summarization(
     print(compression)
 
     # TODO: compare between two models
-
     return 
 
 

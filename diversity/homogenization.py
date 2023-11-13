@@ -59,7 +59,7 @@ def _calculate_score(pair, scorer, measure, model):
     """ Returns the score of two strings """
 
     if pair[0] == pair[1]: 
-        return 0
+        return 1
     else:
         if measure == 'rougel':
             score = scorer.score(pair[0], 

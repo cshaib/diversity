@@ -46,30 +46,23 @@ def homogenization_score(
     corpus_score = 0
     doc_score = 0
     
-    if verbose:
-        print('==> Scoring all pairs')
-        for pair in tqdm(all_pairs, total=len(data)**2):
-            # single document-level homogenization score, pairs are ordered
-            if pair[0] == curr_str:     
-                doc_score += _calculate_score(pair, scorer, measure, model)
-            else:
-                corpus_score += doc_score / (len(data) - 1)
-                curr_str = pair[0]
-                doc_score = 0 
-                doc_score += _calculate_score(pair, scorer, measure, model)
-    else:
-        for pair in all_pairs:
-            # single document-level homogenization score, pairs are ordered
-            if pair[0] == curr_str:     
-                doc_score += _calculate_score(pair, scorer, measure, model)
-            else:
-                corpus_score += doc_score / (len(data) - 1)
-                curr_str = pair[0]
-                doc_score = 0 
-                doc_score += _calculate_score(pair, scorer, measure, model)
-        
+    print('==> Scoring all pairs')
+    for pair in tqdm(all_pairs, total=len(data)**2):
+        # single document-level homogenization score, pairs are ordered
+        if pair[0] == curr_str:     
+            doc_score += _calculate_score(pair, scorer, measure, model)
+        else:
+            corpus_score += doc_score / (len(data) - 1)
+            curr_str = pair[0]
+            doc_score = 0 
+            doc_score += _calculate_score(pair, scorer, measure, model)
+    
+    # case where all strings are the exact same in the list
+    if corpus_score == 0: 
+        corpus_score += doc_score 
+    
     # returns corpus level homogenization score 
-    return round(corpus_score / len(data), 3)
+    return round(corpus_score / len(list(all_pairs)), 3)
 
 
 @memoized

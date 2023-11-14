@@ -75,6 +75,7 @@ def homogenization_score(
 @memoized
 def _calculate_score(pair, scorer, measure, model):
     """ Returns the score of two strings """
+    
     # repeated string (excat str match) that is *not* at the same position 
     if pair[0] == pair[1]: 
         return 1

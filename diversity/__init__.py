@@ -4,4 +4,3 @@ from .patterns.part_of_speech import pos_patterns, get_pos
 from .utils.memoize import memoized
 from .homogenization import homogenization_score
 from .ngram_diversity import ngram_diversity_score
-from .eigen_auc import eigen_auc

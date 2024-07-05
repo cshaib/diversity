@@ -4,7 +4,7 @@ import numpy as np
 import itertools
 from typing import List, Optional
 from tqdm import tqdm
-from pattern import token_patterns, get_pos, pos_patterns
+from .patterns import token_patterns, get_pos, pos_patterns
 from nltk.tokenize import sent_tokenize
 
 def extract_patterns(text: List[str], 
@@ -62,7 +62,7 @@ def match_patterns(text: str,
                    patterns: dict
 ) -> List[tuple]:
     """ Matches text to part-of-speech patterns extracted from the `extract_patterns` function.
-        Used to identify which patterns appears in a single input text. 
+        Given set of patterns, used to identify which patterns appears in a single input text. 
     Args:
         text (str): Text to match patterns to.
         patterns (dict): Dictionary of patterns and their corresponding text.

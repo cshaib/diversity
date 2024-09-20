@@ -1,7 +1,6 @@
 from typing import List, Tuple, Any, Set
 
-import nltk
-nltk.download('averaged_perceptron_tagger')
+import spacy
 
 def get_pos(
         data: List[str]
@@ -14,15 +13,22 @@ def get_pos(
     Returns:
         Tuple[List[str], List[Tuple[str, str]]]: Part-of-speech tags only, tuple of (token, part-of-speech tag).
     """
+    nlp = spacy.load("en_core_web_sm")
 
-    pos_tuples = [nltk.pos_tag(x.split()) for x in data]
+    tokenized_data = [x.split() for x in data]
 
+    pos_tuples = []
     joined_pos = []
     joined_text = []
 
-    for doc in pos_tuples:
-        joined_text.append(' '.join([x[0] for x in doc]))
-        joined_pos.append(' '.join([x[1] for x in doc]))
+    for tokens in tokenized_data:
+
+        doc = nlp(' '.join(tokens))
+        
+        joined_text.append(' '.join([token.text for token in doc]))
+        joined_pos.append(' '.join([token.tag_ for token in doc]))
+        
+        pos_tuples.append([(token.text, token.tag_) for token in doc])
 
     return joined_pos, pos_tuples
 

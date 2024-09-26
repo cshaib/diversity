@@ -1,11 +1,6 @@
 
-# 🎨 `diversity`
+This tool supports various scoring methods for evaluating the homogeneity and diversity of outputs. ]
 
-`diversity` is a package that checks for and scores repeated structures and patterns in the output of language models. 
-
-## Library
-
-This library supports various scoring methods for evaluating the homogeneity and diversity of outputs. 
 ```python
 from diversity import compression_ratio, homogenization_score, ngram_diversity_score
 

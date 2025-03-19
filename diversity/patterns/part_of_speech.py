@@ -13,21 +13,17 @@ def get_pos(
     Returns:
         Tuple[List[str], List[Tuple[str, str]]]: Part-of-speech tags only, tuple of (token, part-of-speech tag).
     """
-    nlp = spacy.load("en_core_web_sm")
-
-    tokenized_data = [x.split() for x in data]
+    nlp = spacy.load("en_core_web_sm", enable=["tok2vec", "tagger"])
 
     pos_tuples = []
     joined_pos = []
     joined_text = []
 
-    for tokens in tokenized_data:
-
-        doc = nlp(' '.join(tokens))
-        
+    docs = nlp.pipe(data, n_process=4, batch_size=1000)
+    
+    for doc in docs:
         joined_text.append(' '.join([token.text for token in doc]))
         joined_pos.append(' '.join([token.tag_ for token in doc]))
-        
         pos_tuples.append([(token.text, token.tag_) for token in doc])
 
     return joined_pos, pos_tuples

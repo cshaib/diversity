@@ -5,7 +5,7 @@ from typing import List, Optional
 from tqdm import tqdm
 from rouge_score import rouge_scorer
 from evaluate import load
-
+from multiprocessing import Pool, cpu_count
 
 def homogenization_score(
         data: List[str],
@@ -13,9 +13,9 @@ def homogenization_score(
         use_stemmer: Optional[str] = False,
         model: Optional[str] = 'distilbert-base-uncased',
         verbose: Optional[bool] = True
-
 ) -> float:
-    """ Calculates the homogenization score for a set of documents (corpus-level). 
+    """ 
+    Calculates the homogenization score for a set of documents (corpus-level). 
         From https://arxiv.org/pdf/2309.05196.pdf 
      Args:
          data (List[str]): Strings to score.
@@ -36,34 +36,32 @@ def homogenization_score(
     else: 
         raise ValueError("Scoring measure must be one of `rougel`, `bleu`, or `bertscore`.")
 
-    # all pairs of comparisons (cartesian product) without repetition at the same index
-    all_pairs = ((data[i], data[j]) 
-                    for i in range(len(data))
-                    for j in range(len(data))
-                    if i != j)
-
-    curr_str = data[0]
     corpus_score = 0
     doc_score = 0
     
-    print('==> Scoring all pairs')
-    for pair in tqdm(all_pairs, total=len(data)**2 - len(data)):
-        # single document-level homogenization score, pairs are ordered
-        if pair[0] == curr_str:     
-            doc_score += _calculate_score(pair, scorer, measure, model)
-        else:
-            corpus_score += doc_score / (len(data) - 1)
-            curr_str = pair[0]
-            doc_score = 0 
-            doc_score += _calculate_score(pair, scorer, measure, model)
+    if verbose:
+        print('==> Scoring all pairs')
+        
+    pool = Pool(cpu_count()-1) 
+     
+    for ind1, curr_str in tqdm(enumerate(data), total=len(data), disable=(not verbose)):
+        all_args = [((curr_str, data[ind2]), scorer, measure, model) for ind2 in range(len(data)) if ind2!=ind1] 
+        doc_scores = pool.map(wrapped_score, all_args)
+        corpus_score += sum(doc_scores)/(len(data)-1)
     
     # case where all strings are the exact same in the list
     if corpus_score == 0: 
-        corpus_score += doc_score 
+        corpus_score += len(data)
     
     # returns corpus level homogenization score 
     return round(corpus_score / len(data), 3)
 
+def wrapped_score(args): 
+    """
+    we need to wrap the call to unpack the parameters 
+    we build before as a tuple for being able to use pool.map
+    """ 
+    return _calculate_score(*args)
 
 @memoized
 def _calculate_score(pair, scorer, measure, model):

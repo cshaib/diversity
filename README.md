@@ -1,7 +1,7 @@
 
 # 🎨 `diversity`
 
-`diversity` is a package that checks for and scores repeated structures and patterns in the output of language models. 
+`diversity` is a package that checks for and scores repeated structures and patterns in the output of language models. This repository accompanies the paper [Standardizing the Measurement of Text Diversity](https://arxiv.org/abs/2403.00553)
 
 ## Library
 
@@ -88,3 +88,16 @@ match_patterns(text[idx], patterns)
  ...
 ]
 ```
+
+If you use this package, please add the following citation: 
+
+@misc{shaib2025standardizingmeasurementtextdiversity,
+      title={Standardizing the Measurement of Text Diversity: A Tool and a Comparative Analysis of Scores}, 
+      author={Chantal Shaib and Joe Barrow and Jiuding Sun and Alexa F. Siu and Byron C. Wallace and Ani Nenkova},
+      year={2025},
+      eprint={2403.00553},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2403.00553}, 
+}
+

@@ -90,7 +90,7 @@ match_patterns(text[idx], patterns)
 ```
 
 If you use this package, please add the following citation: 
-
+```
 @misc{shaib2025standardizingmeasurementtextdiversity,
       title={Standardizing the Measurement of Text Diversity: A Tool and a Comparative Analysis of Scores}, 
       author={Chantal Shaib and Joe Barrow and Jiuding Sun and Alexa F. Siu and Byron C. Wallace and Ani Nenkova},
@@ -100,4 +100,4 @@ If you use this package, please add the following citation:
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2403.00553}, 
 }
-
+```

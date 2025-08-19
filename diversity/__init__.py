@@ -6,3 +6,4 @@ from .homogenization import homogenization_score
 from .ngram_diversity import ngram_diversity_score
 from .functions import extract_patterns, match_patterns
 from .self_repetition import self_repetition_score
+from .template import template_rate, templates_per_token

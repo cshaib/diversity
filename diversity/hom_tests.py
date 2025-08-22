@@ -1,3 +1,8 @@
+'''
+Times and tests BERTScore, ROUGE and BLEU score computation over CNN-DailyMail
+summaries.
+'''
+
 from datasets import load_dataset
 from homogenization import homogenization_score
 from time import perf_counter as pc

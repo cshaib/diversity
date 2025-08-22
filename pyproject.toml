@@ -11,6 +11,8 @@ typer = "^0.9.0"
 nltk = "^3.8.1"
 rouge-score = "^0.1.2"
 evaluate = "^0.4.1"
+sentence-transformers = "^5.1.0"
+transformers = "^4.41.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.4.0"

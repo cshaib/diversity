@@ -7,3 +7,4 @@ from .ngram_diversity import ngram_diversity_score
 from .functions import extract_patterns, match_patterns
 from .self_repetition import self_repetition_score
 from .embedding_sim import remote_clique, chamfer_dist
+from .template import template_rate, templates_per_token

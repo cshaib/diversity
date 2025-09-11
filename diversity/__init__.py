@@ -8,3 +8,4 @@ from .functions import extract_patterns, match_patterns
 from .self_repetition import self_repetition_score
 from .template import template_rate, templates_per_token
 from .qudsim import qudsim
+from .embedding import remote_clique, chamfer_dist

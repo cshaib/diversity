@@ -1,7 +1,4 @@
-
-from .qudsim_preprocessing import number
-from .qudsim_qud_generation import pipeline
-from .qudsim_alignment import align
+from .qudsim_modules import number_text, get_quds, align
 from .utils import openai
 from tqdm import tqdm
 import itertools
@@ -9,15 +6,13 @@ import json
 import yaml
 import os
 
-
-
 class Document:
     def __init__(self, document):
         self.document = document
 
     def preprocess_document(self):
 
-        numbered_text, number_sentence_dict = number.number_text(self.document)
+        numbered_text, number_sentence_dict = number_text(self.document)
 
         if not numbered_text or not number_sentence_dict:
             print("Could not preprocess document: ", self.document)
@@ -37,7 +32,7 @@ class Document:
             print("Failed to parse configurations")
             return None, None, [], []
         
-        qg_item = pipeline.get_quds(gpt_model, self.numbered_text, self.number_sentence_dict, level, max_tries)
+        qg_item = get_quds(gpt_model, self.numbered_text, self.number_sentence_dict, level, max_tries)
         
         if qg_item is None:
             print("Could not segment, abstract or generate quds")
@@ -75,7 +70,7 @@ class AlignmentPair:
         source_segments = self.source_document.segments
         target_segments = self.target_document.segments
         
-        source_qud_answers, target_qud_answers, harmonic_mean_scores, aligned_segments = align.align(gpt_model,
+        source_qud_answers, target_qud_answers, harmonic_mean_scores, aligned_segments = align(gpt_model,
                                                                                                      self.source_document.quds,
                                                                                                      self.target_document.numbered_text,
                                                                                                      self.target_document.quds,
@@ -199,14 +194,13 @@ def qudsim(documents: list[str], key=None, config_file=None):
         return
 
     # create document objects (one Document per document)
-    # make pairs from the list of document objects
     document_list = _compile_documents(documents=documents, qg_gpt_model=qg_gpt_model, config=configs)
 
     if len(document_list)<2:
         print("At least two documents must successfully generate QUDs.")
         return
 
-    
+    # make pairs from the list of Document objects
     pair_combinations = list(itertools.combinations(document_list, 2))
     alignment_pairs = []
     for doc1, doc2 in tqdm(pair_combinations, total=len(pair_combinations), desc='Aligning Document Pairs'):

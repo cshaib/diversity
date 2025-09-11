@@ -1,5 +1,5 @@
 
-from ..utils import openai
+from ...utils import openai
 
 system_prompt = "You will be given text with numbered sentences and your task is to redraw the paragraph boundaries such that each chunk is about one atomic topic. Each segment cannot be about multiple topics or about a complex topic. You may not change the text or change the order of the sentences. For each segment, provide the list of sentence numbers that belong to that segment."
 
@@ -10,6 +10,17 @@ class Answer(openai.BaseModel):
     segmentation: list[Segment]
 
 def segment(gpt_model: openai.GPT, passage: str, sentence_dict: dict, max_tries: int):
+    """Segment the passage such that each segment is thematically atomic
+
+    Args:
+        gpt_model: an OpenAI client
+        passage (str): Passage/document
+        sentence_dict (dict): Dictionary mapping between sentence numbers and corresponding sentences in the passage
+        max_tries (int): maximum number of attempts the client can make in case of failure 
+    
+    Returns:
+        Answer: Segments wrapped in an openai.BaseModel class
+    """
     text = " ".join(passage.split("\n\n"))
 
     document_sentences = [k for k,v in sentence_dict.items()]

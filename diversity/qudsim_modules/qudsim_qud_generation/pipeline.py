@@ -18,6 +18,24 @@ def _get_qud_dict(quds):
     return segment_qud_dict, qud_segment_dict
 
 def get_quds(gpt_model, text: str, sentence_num_dict: dict, level: int, max_tries: int):
+    """Performs segmentation, entity extraction and QUD generation on the text at the specified level
+
+    Args:
+        gpt_model: an OpenAI client
+        text (str): passage/document
+        sentence_dict (dict): Dictionary mapping between sentence numbers and corresponding sentences in the passage
+        level (0/1): Abstraction level of QUDs (1=abstract; 0=specific)
+        max_tries (int): maximum number of attempts the client can make in case of failure 
+    
+    Returns:
+        dict: results of the pipeline:
+            segments: segmentation json
+            segment_dict: Maps sentence number to its corresponding segment
+            entity_abstracted_segments: segments post-entity-extraction
+            quds: quds for the document in json
+            segment_qud_dict: Maps segment index to a list of corresponding QUD indices
+            qud_segment_dict: Maps QUD indices to their corresponding segment indices
+    """
 
     # SEGMENTATION
     segments, segmented_text = segment(gpt_model, text, sentence_num_dict, max_tries)
@@ -37,9 +55,9 @@ def get_quds(gpt_model, text: str, sentence_num_dict: dict, level: int, max_trie
         # ENTITY ABSTRACTION
         numbered_segment_text = "\n\n".join(["[" + str(i)+ "] " + seg for i, seg in enumerate(segmented_text)])
         decontextualized_segments = decontextualize(gpt_model, 
-                                                                    numbered_segment_text, 
-                                                                    len(segmented_text), 
-                                                                    max_tries)
+                                                    numbered_segment_text, 
+                                                    len(segmented_text), 
+                                                    max_tries)
         if decontextualized_segments is None:
             print("Entity abstraction was unsuccessful.")
             return None

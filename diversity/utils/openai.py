@@ -4,7 +4,7 @@ import os
 
 class GPT():
     '''
-    Wrapper to instantiate and make requests to openai clients
+    Wrapper. Helps instantiate and make requests to openai clients.
     '''
     def __init__(self, gpt_model, key):
         self.model = gpt_model

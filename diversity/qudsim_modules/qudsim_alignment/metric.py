@@ -39,10 +39,23 @@ class FrequencyBasedSimilarity(SimilarityMetric):
 
     def calculate_similarity(self, num_target_segments:int, 
                              num_source_segments:int, 
-                             qud_answers:list, 
+                             qud_answers:dict, 
                              source_seg_qud_dict: dict, 
                              target_segments: str): 
+        """ Calculates directional similarity between a source and target document
+            (Figure 2 in https://arxiv.org/pdf/2504.09373)
+
+        Args:
+            num_target_segments (int): Number of target segments
+            num_source_segments (int): Number of source segments
+            qud_answers (dict): JSON representation of answers to source quds given target document
+            source_seg_qud_dict (dict): Mapping between source segment indices and a list of corresponding QUD indices
+            target_segments (str): JSON string representation of target segments (qudsim_qud_generation.segment.Answer)
         
+        Returns:
+            ndarray: array of dimensions (num_source_segments, num_target_segments)
+                representing similarity scores between each pair of segments
+        """
         sentence_count_map = self._count_sentences(qud_answers,
                                                    num_target_segments,
                                                    target_segments)

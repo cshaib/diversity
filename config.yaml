@@ -1,0 +1,6 @@
+qg_gpt_model: "gpt-4o-2024-08-06"
+qa_gpt_model: "gpt-4o-2024-08-06"
+level: 1
+temperature: 1
+threshold: 0.20
+max_tries: 3

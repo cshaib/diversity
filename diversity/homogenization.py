@@ -7,7 +7,7 @@ def homogenization_score(
         data: List[str],
         measure: str = 'rougel',
         use_stemmer: Optional[str] = False,
-        model: Optional[str] = "distilbert-base-uncased",
+        model: Optional[str] = "microsoft/deberta-base-mnli",
         verbose: Optional[bool] = True,
         batch_size: Optional[int] = 64
 ) -> float:

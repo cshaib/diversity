@@ -3,7 +3,6 @@
 [![PyPI version](https://img.shields.io/pypi/v/diversity.svg)](https://pypi.org/project/diversity/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![ArXiv](https://img.shields.io/badge/arXiv-2403.00553-b31b1b.svg)](https://arxiv.org/abs/2403.00553)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/cshaib/diversity/tests.yml?branch=main)](https://github.com/cshaib/diversity/actions)
 
 **A Python toolkit for measuring lexical and syntactic diversity in text outputs.**
 

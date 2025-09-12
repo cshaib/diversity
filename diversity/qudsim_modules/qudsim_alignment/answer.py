@@ -1,4 +1,4 @@
-from ..utils import openai
+from ...utils import openai
 
 system_prompt = "You are an expert reading comprehension agent. You will be given a passage with numbered sentences and a series of questions. For each question, your task is to extract all sentences that directly help answer it. You must return the question and a list of sentence numbers and sentences that answer it. The question may not always be answerable. In that case, return an empty list. Do NOT overgenerate. Do not modify the original text."
 

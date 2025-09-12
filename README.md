@@ -262,8 +262,6 @@ print(f"Alignment scores shape: {len(scores)}x{len(scores[0])}")
 
 If you use this package, please cite:
 
-bibtex
-
 ```bibtex
 @misc{shaib2025standardizingmeasurementtextdiversity,
   title={Standardizing the Measurement of Text Diversity: A Tool and a Comparative Analysis of Scores},
@@ -277,8 +275,6 @@ bibtex
 ```
 
 If you use QUDSim, please  **also**  cite:
-
-bibtex
 
 ```bibtex
 @inproceedings{

@@ -360,22 +360,3 @@ for i in range(0, len(texts), batch_size):
 ```
 
 ----------
-
-## Support
-
-For issues and questions:
-
--   GitHub Issues:  [https://github.com/cshaib/diversity/issues](https://github.com/cshaib/diversity/issues)
--   Documentation:  [https://github.com/cshaib/diversity](https://github.com/cshaib/diversity)
-## License
-
-This package is released under the **Apache License 2.0**.
-
----
-
-## Contributing
-
-Contributions are welcome!  
-Please open an issue or submit a pull request on GitHub.
-
----

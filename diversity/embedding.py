@@ -1,3 +1,10 @@
+'''
+Computes remote clique and chamfer distance on embeddings for a set of documents
+to understand their semantic (in embedding space) diversity.
+
+Following Samuel Rhys Cox et al. 2021. "Directed Diversity: Leveraging Language Embedding Distances for Collective Creativity in Crowd Ideation". In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (CHI '21). Association for Computing Machinery, New York, NY, USA, Article 393, 1–35. https://doi.org/10.1145/3411764.3445782
+'''
+
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_distances
 import numpy as np

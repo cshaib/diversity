@@ -51,6 +51,30 @@ pip install .
 
 ## Quick Start
 
+The function `compute_all_metrics` will return a dictionary (and optionally a LaTeX/Markdown formatted tabular output) computing the diversity metrics described individually in the following section. 
+
+```
+from diversity import compute_all_metrics
+import json
+
+texts = [
+    "The quick brown fox jumps over the lazy dog.",
+    "The quick brown fox jumps over the lazy dog again.",
+    "Suddenly, the quick brown fox leaps swiftly over the sleeping dog."
+]
+
+# Compute metrics
+results = compute_all_metrics(corpus=texts)
+
+# Remove the list of per-document scores for cleaner dict output
+clean_results = {k: v for k, v in results.items() 
+                if k != "templates_per_token_scores"}
+output_content = json.dumps(clean_results, indent=2)
+
+with open('diversity_metrics.json', 'w', encoding='utf-8') as f:
+    f.write(output_content)
+```
+
 ### Lexical Diversity Measures
 
 We provide implementations for Compression Ratio, Homogenization Score, and n-gram Diversity Score: 

@@ -14,10 +14,12 @@
     - [`compression_ratio`](#compression_ratiotexts-methodgzip)
     - [`homogenization_score`](#homogenization_scoretexts-methodself-bleu)
     - [`ngram_diversity_score`](#ngram_diversity_scoretexts-n3)
-    - [`self_repetition_score`](#self_repetition_scoretexts)
+    - [`self_repetition_score`](#self_repetition_scoretexts-n4)
   - [Syntactic Diversity Measures](#syntactic-diversity-measures)
     - [`extract_patterns`](#extract_patternstexts-n4-top_n5)
     - [`match_patterns`](#match_patternstext-patterns)
+    - [`template_rate`](#template_ratedata-templatesnone-shard_size500)
+    - [`templates_per_token`](#templates_per_tokendata-templatesnone-shard_size500)
   - [Embedding-Based Diversity Measures](#embedding-based-diversity-measures)
     - [`remote_clique`](#remote_cliquedata-modelqwenqwen3-embedding-06b-verbo-true-batch_size64)
     - [`chamfer_dist`](#chamfer_distdata-modelqwenqwen3-embedding-06b-verbo-true-batch_size64)
@@ -130,7 +132,7 @@ print(f"Self-repetition score: {srs:4f}")
     -   `n`  (int): N-gram size
 -   **Returns:**  Float, higher = more diverse
 
-#### `self_repetition_score(texts)`
+#### `self_repetition_score(texts, n=4)`
 
 -   **Parameters:**
     -   `text`  (list): List of text strings
@@ -144,7 +146,9 @@ We also provide functions for extracting and analyze Part-of-Speech (POS) patter
 ```python
 from diversity import (
     extract_patterns,
-    match_patterns
+    match_patterns,
+    template_rate,
+    templates_per_token
 )
 
 texts = [
@@ -162,7 +166,56 @@ print("Top POS patterns:", patterns)
 matches = match_patterns(texts[2], patterns)
 print("Patterns in 3rd sentence:", matches)
 # Example output: [{'pattern': ('DT', 'JJ', 'JJ', 'NN'), 'text': 'the quick brown fox', 'position': (0, 4)}]
+
+# Template Rate (number of templates that appear in each text, averaged across documents0
+tr = template_rate(texts, templates)
+print("Template Rate:", tr)
+
+# Templates-per-token (normalized by text length, per output) 
+tpt = templates_per_token(texts, templates)
+print("Templates per Token:", tpt)
 ```
+
+#### `extract_patterns(text, n=5, top_n=100)`
+
+-   **text (list of str):**  Documents to extract syntactic patterns from.
+    
+-   **n (int):**  N-gram size for POS pattern extraction (default:  `5`).
+    
+-   **top_n (int):**  Number of most frequent patterns to keep (default:  `100`).
+    
+-   **Returns:**  `dict`  — dictionary mapping POS patterns (e.g., `"DT JJ NN NN"`) to sets of text spans that match the patterns
+
+
+#### `match_patterns(text, patterns)`
+
+-   **text (str):**  Input text to search for patterns.
+    
+-   **patterns (dict):**  Dictionary of patterns and their text matches as returned by `extract_patterns`.
+    
+-   **Returns:**  `list[tuple]`  — list of `(pattern, text)` pairs showing which syntactic patterns appear in the input and the exact spans that match
+
+
+#### `template_rate(data, templates=None, shard_size=500)`
+
+-   **data (list of str):**  Documents to score.
+    
+-   **templates (dict, optional):**  Dictionary of templates extracted from the corpus. If `None`, templates are computed using `extract_patterns`.  
+    
+-   **shard_size (int):**  Number of regex patterns to compile per shard (default: `500`).  
+    
+-   **Returns:**  `float`  — fraction of documents in the corpus that contain at least one template (higher = more templated, lower = more original).  
+    
+
+#### `templates_per_token(data, templates=None, shard_size=500)`
+
+-   **data (list of str):**  Documents to score.  
+    
+-   **templates (dict, optional):**  Dictionary of templates extracted from the corpus. If `None`, templates are computed using `extract_patterns`.  
+    
+-   **shard_size (int):**  Number of regex patterns to compile per shard (default: `500`).  
+    
+-   **Returns:**  `float`  — per-document ratio of template matches to tokens (higher = more templated per word, lower = more diverse writing).  
 
 ----------
 

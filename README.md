@@ -164,36 +164,6 @@ print("Patterns in 3rd sentence:", matches)
 # Example output: [{'pattern': ('DT', 'JJ', 'JJ', 'NN'), 'text': 'the quick brown fox', 'position': (0, 4)}]
 ```
 
-#### `remote_clique(data, model='Qwen/Qwen3-Embedding-0.6B', verbose=True, batch_size=64)`
-
--   **Parameters:**
-    
-    -   `data`  (list): List of text strings to score
-        
-    -   `model`  (str): Embedding model to use (default:  `"Qwen/Qwen3-Embedding-0.6B"`)
-        
-    -   `verbose`  (bool): Whether to display progress bar (default:  `True`)
-        
-    -   `batch_size`  (int): Batch size for embedding (default:  `64`)
-        
--   **Returns:**  `float`  — Remote Clique score (average mean pairwise distance between documents)
-    
-
-----------
-
-#### `chamfer_dist(data, model='Qwen/Qwen3-Embedding-0.6B', verbose=True, batch_size=64)`
-
--   **Parameters:**
-    
-    -   `data`  (list): List of text strings to score
-        
-    -   `model`  (str): Embedding model to use (default:  `"Qwen/Qwen3-Embedding-0.6B"`)
-        
-    -   `verbose`  (bool): Whether to display progress bar (default:  `True`)
-        
-    -   `batch_size`  (int): Batch size for embedding (default:  `64`)
-        
--   **Returns:**  `float`  — Chamfer distance (average minimum pairwise distance, lower when many near-duplicates are present)
 ----------
 
 ### Embedding-Based Diversity Measures

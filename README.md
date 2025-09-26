@@ -29,8 +29,6 @@
 - [Requirements](#requirements)
 - [License](#license)
 - [Contributing](#contributing)
-- [Troubleshooting](#troubleshooting)
-- [Support](#support)
 
 ---
 

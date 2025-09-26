@@ -14,6 +14,7 @@
     - [`compression_ratio`](#compression_ratiotexts-methodgzip)
     - [`homogenization_score`](#homogenization_scoretexts-methodself-bleu)
     - [`ngram_diversity_score`](#ngram_diversity_scoretexts-n3)
+    - [`self_repetition_score`](#self_repetition_scoretexts)
   - [Syntactic Diversity Measures](#syntactic-diversity-measures)
     - [`extract_patterns`](#extract_patternstexts-n4-top_n5)
     - [`match_patterns`](#match_patternstext-patterns)
@@ -103,27 +104,37 @@ print(f"Homogenization (Self-BLEU): {hs:.4f}")
 # N-gram diversity
 ngd = ngram_diversity_score(texts, n=3)
 print(f"3-gram Diversity: {ngd:.4f}")
+
+# Self-repetition score
+srs = self_repetition_score (texts)
+print(f"Self-repetition score: {srs:4f}")
 ```
 #### `compression_ratio(texts, method='gzip')`
 
 -   **Parameters:**
     -   `texts`  (list): List of text strings
     -   `method`  (str): Compression algorithm ('gzip', 'bz2', 'lzma')
--   **Returns:**  Float (0-1), higher = more repetitive
+-   **Returns:**  Float, higher = more repetitive
 
 #### `homogenization_score(texts, method='self-bleu')`
 
 -   **Parameters:**
     -   `texts`  (list): List of text strings
-    -   `method`  (str): Scoring method ('self-bleu', 'rouge-l')
--   **Returns:**  Float (0-1), higher = more homogeneous
+    -   `method`  (str): Scoring method ('self-bleu', 'rouge-l', 'bertscore')
+-   **Returns:**  Float, higher = more homogeneous
 
 #### `ngram_diversity_score(texts, n=3)`
 
 -   **Parameters:**
     -   `texts`  (list): List of text strings
     -   `n`  (int): N-gram size
--   **Returns:**  Float (0-1), higher = more diverse
+-   **Returns:**  Float, higher = more diverse
+
+#### `self_repetition_score(texts)`
+
+-   **Parameters:**
+    -   `text`  (list): List of text strings
+-   **Returns:**  Float, higher = more diverse
 ----------
 
 ### Syntactic Diversity Measures

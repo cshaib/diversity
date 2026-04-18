@@ -5,7 +5,7 @@ from typing import Dict, Iterable, List, Optional
 
 
 def template_rate(
-    data = List[str], 
+    data: List[str],
     templates: Optional[Dict[str, Iterable[str]]] = None,
     shard_size: int = 500,
         

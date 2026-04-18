@@ -46,7 +46,7 @@ def summarization(
     text_matches = {}
 
     for pattern, _ in ngrams_pos:
-        text_matches['pattern'] = pos_patterns(tuples, pattern)
+        text_matches[pattern] = pos_patterns(tuples, pattern)
 
     # get the compression score
     compression = compression_ratio(outputs, 'gzip')

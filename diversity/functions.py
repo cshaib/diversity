@@ -42,8 +42,6 @@ def extract_patterns(text: List[str],
     # sentence tokenize then search for patterns in the entire list 
     outputs = sent_tokenize(' '.join(text))
 
-    # get the token (word)-level patterns
-    patterns_token  =  token_patterns(outputs, n)
 
     # get the part-of-speech patterns (only include top_n patterns)
     joined_pos, tuples  =  get_pos(outputs)

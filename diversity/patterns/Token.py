@@ -19,11 +19,11 @@ def token_patterns(
         List[Tuple[str, int]]: Sorted list of top n-gram patterns.
     """
 
-    # treat data as one string 
-    all_data = ' '.join(data)
-
-    ngrams = list(nltk.ngrams(all_data.split(' '), n))
-    frequency = nltk.FreqDist(ngrams)
+    # Iterate to prevent ngrams from crossing sentence boundaries.
+    all_ngrams = []
+    for sentence in data:
+        all_ngrams.extend(list(nltk.ngrams(sentence.split(' '), n)))
+    frequency = nltk.FreqDist(all_ngrams)
 
     sorted_frequency = sorted(frequency.items(), key=lambda kv: kv[1], reverse=True)[:top_n]
 

@@ -42,7 +42,6 @@ def extract_patterns(text: List[str],
     # sentence tokenize then search for patterns in the entire list 
     outputs = sent_tokenize(' '.join(text))
 
-
     # get the part-of-speech patterns (only include top_n patterns)
     joined_pos, tuples  =  get_pos(outputs)
     ngrams_pos  =  token_patterns(joined_pos, n, top_n)

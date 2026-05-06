@@ -25,7 +25,7 @@ def self_repetition_score(
     total_sum = 0
     
     # Get all unique ngrams per doc
-    ngram_docs = [list(set([' '.join(ngram) for ngram in ngrams(doc.split(), 4)])) for doc in dataset]
+    ngram_docs = [list(set([' '.join(ngram) for ngram in ngrams(doc.split(), n)])) for doc in dataset]
     
     # Count occurrences of unique ngrams across whole dataset
     all_ngrams = sum(ngram_docs, [])

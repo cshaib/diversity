@@ -11,10 +11,10 @@
 - [Installation](#installation)
 - [Quick Start](#quick-start)
   - [Lexical Diversity Measures](#lexical-diversity-measures)
-    - [`compression_ratio`](#compression_ratiotexts-methodgzip)
-    - [`homogenization_score`](#homogenization_scoretexts-methodself-bleu)
-    - [`ngram_diversity_score`](#ngram_diversity_scoretexts-n3)
-    - [`self_repetition_score`](#self_repetition_scoretexts-n4)
+    - [`compression_ratio`](#compression_ratiotexts-algorithmgzip)
+    - [`homogenization_score`](#homogenization_scoretexts-measurerougel)
+    - [`ngram_diversity_score`](#ngram_diversity_scoretexts-num_n4)
+    - [`self_repetition_score`](#self_repetition_scoredataset-n4)
   - [Syntactic Diversity Measures](#syntactic-diversity-measures)
     - [`extract_patterns`](#extract_patternstexts-n4-top_n5)
     - [`match_patterns`](#match_patternstext-patterns)
@@ -94,47 +94,48 @@ texts = [
 ]
 
 # Compression ratio
-cr = compression_ratio(texts, method='gzip')
+cr = compression_ratio(texts, algorithm='gzip')
 print(f"Compression Ratio: {cr:.4f}")
 
-# Homogenization score (Self-BLEU)
-hs = homogenization_score(texts, method='self-bleu')
-print(f"Homogenization (Self-BLEU): {hs:.4f}")
+# Homogenization score (ROUGE-L)
+hs = homogenization_score(texts, measure='rougel')
+print(f"Homogenization (ROUGE-L): {hs:.4f}")
 
 # N-gram diversity
-ngd = ngram_diversity_score(texts, n=3)
+ngd = ngram_diversity_score(texts, num_n=3)
 print(f"3-gram Diversity: {ngd:.4f}")
 
 # Self-repetition score
 srs = self_repetition_score (texts)
 print(f"Self-repetition score: {srs:4f}")
 ```
-#### `compression_ratio(texts, method='gzip')`
+#### `compression_ratio(texts, algorithm='gzip')`
 
 -   **Parameters:**
     -   `texts`  (list): List of text strings
-    -   `method`  (str): Compression algorithm ('gzip', 'bz2', 'lzma')
+    -   `algorithm`  (str): Compression algorithm (`'gzip'` or `'xz'`)
 -   **Returns:**  Float, higher = more repetitive
 
-#### `homogenization_score(texts, method='self-bleu')`
+#### `homogenization_score(texts, measure='rougel')`
 
 -   **Parameters:**
     -   `texts`  (list): List of text strings
-    -   `method`  (str): Scoring method ('self-bleu', 'rouge-l', 'bertscore')
+    -   `measure`  (str): Scoring method (`'rougel'`, `'bleu'`, or `'bertscore'`)
 -   **Returns:**  Float, higher = more homogeneous
 
-#### `ngram_diversity_score(texts, n=3)`
+#### `ngram_diversity_score(texts, num_n=4)`
 
 -   **Parameters:**
     -   `texts`  (list): List of text strings
-    -   `n`  (int): N-gram size
+    -   `num_n`  (int): Max n-gram size to evaluate up to
 -   **Returns:**  Float, higher = more diverse
 
-#### `self_repetition_score(texts, n=4)`
+#### `self_repetition_score(dataset, n=4)`
 
 -   **Parameters:**
-    -   `text`  (list): List of text strings
--   **Returns:**  Float, higher = more diverse
+    -   `dataset`  (list): List of text strings
+    -   `n`  (int): N-gram size
+-   **Returns:**  Float, higher = more repetitive
 ----------
 
 ### Syntactic Diversity Measures
@@ -163,14 +164,14 @@ print("Top POS patterns:", patterns)
 # Match patterns in a single text
 matches = match_patterns(texts[2], patterns)
 print("Patterns in 3rd sentence:", matches)
-# Example output: [{'pattern': ('DT', 'JJ', 'JJ', 'NN'), 'text': 'the quick brown fox', 'position': (0, 4)}]
+# Example output: [('DT JJ JJ NN', 'The quick brown fox'), ...]
 
-# Template Rate (number of templates that appear in each text, averaged across documents0
-tr = template_rate(texts, templates)
+# Template Rate (number of templates that appear in each text, averaged across documents)
+tr = template_rate(texts, patterns)
 print("Template Rate:", tr)
 
 # Templates-per-token (normalized by text length, per output) 
-tpt = templates_per_token(texts, templates)
+tpt = templates_per_token(texts, patterns)
 print("Templates per Token:", tpt)
 ```
 
@@ -286,7 +287,8 @@ key = os.environ.get('OPENAI_API_KEY')  # or your API key
 alignment = qudsim([document1, document2], key=key)
 
 # Access alignment results
-results = eval(alignment)[0]  # First document pair
+import json
+results = json.loads(alignment)[0]  # First document pair
 
 # View aligned segments
 for source_text, target_text in results['aligned_segment_text']:
@@ -304,14 +306,13 @@ print(f"Alignment scores shape: {len(scores)}x{len(scores[0])}")
 # - results['aligned_segments']: Indices of aligned segments
 ```
 
-#### `qudsim(documents, key)`
+#### `qudsim(documents, key, config_file=None)`
 
 -   **Parameters:**
     -   `documents` (list): List of texts to align
     -   `key` (str): OpenAI API key for QUD generation
-    - `model` (str): LLM model to use (default: `gpt-4`)
-    -  `threshold` (float): Minimum alignment score threshold (default: 0.5)
--   **Returns:**  list of alignment scores
+    -   `config_file` (str, optional): Path to a `.yaml` config file. If omitted, uses the bundled `config.yaml`. Model, threshold, and other settings are set there.
+-   **Returns:**  JSON string containing alignment results for all document pairs
 ----------
  
 ## Citation(s)

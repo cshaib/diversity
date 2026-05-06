@@ -66,19 +66,16 @@ def pos_patterns(
         pos.append([i[1] for i in doc])
         word.append([i[0] for i in doc])
     
-    pos = [' '.join(x) for x in pos]
-    word = [' '.join(x) for x in word]
-
     all_matches = [] 
 
     # return positions of each tag and the corresponding tokens
     for w, p in zip(word, pos):
 
-        test = _find_sub_list(pattern.split(), p.split())
+        test = _find_sub_list(pattern.split(), p)
 
         if test:
             for occ in test: 
-                splits = w.split()[int(occ[0]):int(occ[1]+1)]
+                splits = w[int(occ[0]):int(occ[1]+1)]
                 all_matches.append(" ".join(splits))
 
     return set(all_matches) 
